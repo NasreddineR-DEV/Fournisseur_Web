@@ -1,0 +1,128 @@
+<div class="wrapper ">
+    <!-- Navbar -->
+    <!-- End Navbar -->
+    <div class="main-panel">
+
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+        <p style="color: red">ID FOURNISSEUR : {{fi.idFournisseur}} </p>  
+        <p style="color: red">Code Tier : {{fi.codeTier}}</p>  
+        <p style="color: red">Raison Social : {{fi.raisonSociale}}</p>  
+
+          <div class="card ">
+            <div class="card-body ">
+              <mat-form-field class="search">
+                <mat-label >Rechercher</mat-label>
+                <input matInput [(ngModel)]="term">
+              </mat-form-field> 
+
+              <mat-form-field class="right">
+                <mat-label>Années</mat-label>
+                <select matNativeControl required [(ngModel)]="year" (change)="getMarcheByIdFournisseur()" >
+                    <option *ngFor="let year of years " [ngValue]="year">{{year}}</option>
+                  </select>
+               </mat-form-field>
+
+                <table class="table table-striped" style="text-align:center" >
+                    <thead>
+                      <tr >
+                        <th scope="col">Code Marche</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Nombres des factures</th>
+                        <th style="text-align:left" scope="col">Factures</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                  <tr class="tr" *ngFor="let marche of marches |filter:term">
+                <td >{{marche.codeMarche}}</td> 
+                <th  scope="row" class="off" *ngIf="marche.statusMarche == 0" (click)="updatemarche(marche.idMarche,marche.statusMarche)"><i class="fas fa-power-off"></i></th>
+                <th  scope="row" class="on" *ngIf="marche.statusMarche == 1" (click)="updatemarche(marche.idMarche,marche.statusMarche)"><i class="fas fa-power-off"></i></th> 
+                        <td >{{getNbFacture(marche.idMarche)}}</td>
+                        <td >           
+                          
+                        <ul  class="nav" style="width: 150px;height: 50px;" *ngIf="marche.statusMarche == 0">
+                          <li>
+                              <i class="nc-icon nc-paper " ></i>
+                              <p>Factures</p>
+                          </li>
+                        </ul>
+
+                        <ul  class="nav"  *ngIf="marche.statusMarche > 0" style="width: 120px;height: 50px;" >
+                          <li  [routerLinkActive]="['active']">
+                            <a data-dismiss="modal" class="nav-link" [routerLink]="['/application/facture',marche.idMarche]">
+                              <i class="nc-icon nc-paper "></i>
+                              <p>Factures</p>
+                            </a>
+                          </li>
+                        </ul>
+            
+            
+            
+                      </td>
+
+                  </tr>
+                    </tbody>
+                  </table>
+
+
+
+
+                  
+            </div>
+        </div>
+        </div>
+      </div>
+      </div>
+                        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Marché ({{marche.codeMarche}})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <p>Status :</p>
+        <mat-slide-toggle class="formdata" (change)="changeetat()"
+        [checked]="statut" style="margin-left: 0px;"
+        > 
+        </mat-slide-toggle>
+
+        <p>La liste des factures :</p>
+          <div class="sidebar-wrapper">
+            
+
+            <ul class="nav">
+              <li [routerLinkActive]="['active']">
+                <a  data-dismiss="modal" class="nav-link" [routerLink]="['/application/facture',marche.idMarche]">
+                  <i class="nc-icon nc-paper "></i>
+                  <p>Factures</p>
+                </a>
+              </li>
+            </ul>
+
+
+            </div>
+  
+
+    
+
+      </div>
+
+      <div class="modal-footer">
+                <button  data-dismiss="modal" mat-stroked-button color="warn" >
+                  <span class="material-icons">
+                    save
+                  </span>  
+                  Enregistrer
+                </button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>

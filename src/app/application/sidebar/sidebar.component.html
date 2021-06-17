@@ -1,0 +1,40 @@
+<div class="sidebar" data-color="white" data-active-color="danger">
+    <div class="logo">
+      <a href="#" class="simple-text logo-mini">
+        <div class="logo-image-small">
+          <img src="/assets/dashboard/img/logo.png">
+        </div>
+      </a>
+      <a href="#" class="simple-text logo-normal">
+       ONCF FOURNISSEURS
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li [routerLinkActive]="['active']">
+          <a class="nav-link" routerLink="/application/dashboard">
+            <i class="nc-icon nc-bank"></i>
+            <p>Tableau de bord</p>
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a class="nav-link" routerLink="/application/fournisseurs">
+            <i class="fas fa-users"></i>
+            <p>Fournisseurs</p>
+          </a>
+        </li>
+        <li >
+          <a  class="nav-link" (click)="click()">
+            <i class="nc-icon nc-shop"></i>
+            <p>Marchés</p>
+          </a>
+        </li>
+        <li >
+          <a  class="nav-link" (click)="click()">
+            <i class="nc-icon nc-paper "></i>
+            <p>Factures</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>

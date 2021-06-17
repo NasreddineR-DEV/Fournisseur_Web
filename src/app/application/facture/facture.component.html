@@ -1,0 +1,112 @@
+<div class="wrapper ">
+    <!-- Navbar -->
+    <!-- End Navbar -->
+    <div class="main-panel">
+
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+            <br> <br> 
+          <div class="card ">
+            <div class="card-body ">
+                  <mat-form-field class="search">
+                    <mat-label >Rechercher</mat-label>
+                    <input matInput [(ngModel)]="term">
+                  </mat-form-field> 
+                  
+                  <mat-form-field class="right">
+                    <mat-label>Nombre de lignes</mat-label>
+                    <select matNativeControl required [(ngModel)]="size" (change)="getFactureByMarche(1,size)">
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                        <option [ngValue]="200">200</option>
+                        <option [ngValue]="500">500</option>
+                      </select>
+                   </mat-form-field>
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Numero Facture</th>
+                        <th scope="col">Date Facture</th>
+                        <th scope="col">Code Devise</th>
+                        <th scope="col">Montant Regle</th>
+                        <th scope="col">Montant Global</th>
+                        <th scope="col">Date Situation</th>
+                        <th scope="col">Date Creation</th>
+                        <th scope="col">Date Modification</th>
+
+                      </tr>
+                    </thead>
+                    <tbody >
+                  <tr class="tr" *ngFor="let fact of facture |filter:term" (click)="modaldata(fact.idFacture)" data-toggle="modal" data-target="#exampleModal">
+                     <th scope="row" class="off" *ngIf="fact.statusFacture == 0"><i class="fas fa-power-off"></i></th>
+                     <th scope="row" class="on" *ngIf="fact.statusFacture == 1"><i class="fas fa-power-off"></i></th>
+                        <td>{{fact.numeroFacture}}</td>
+                        <td>{{fact.dateFacture}}</td>
+                        <td>{{fact.codeDevise}}</td>
+                        <td>{{fact.montantRegle}}</td>
+                        <td>{{fact.montantGlobal}}</td>
+                        <td>{{fact.dateSituation}}</td>
+                        <td>{{fact.dateCreation}}</td>
+                        <td>{{fact.dateModification}}</td>
+                  </tr>
+                    </tbody>
+                  </table>
+
+                  
+                  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Facture ({{factureedit.numeroFacture}})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+   
+          <p style="color: red">*Statut Libelle Court :</p>
+          <p>{{factureedit.statutFacture.statutLibelleCourt}}</p>
+
+          <p style="color: red">*Statut Libelle Long :</p>
+          <p>{{factureedit.statutFacture.statutLibelleLong}}</p>
+
+          <p style="color: red">*Statut :</p>
+          <mat-slide-toggle class="formdata" (change)="changeetat()" 
+          [checked]="checked" style="margin-left: 0px;"
+          >
+               Status
+          </mat-slide-toggle>
+    
+
+
+      </div>
+
+      <div class="modal-footer">
+                <button  data-dismiss="modal" mat-stroked-button color="warn" (click)="updatefacture()">
+                  <span class="material-icons">
+                    save
+                  </span>  
+                  Enregistrer
+                </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                  <mat-paginator [length]="1"
+                                 [pageSize]="size"
+                                 (page)="onclick($event)"
+                                 >
+                 </mat-paginator>
+            </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>

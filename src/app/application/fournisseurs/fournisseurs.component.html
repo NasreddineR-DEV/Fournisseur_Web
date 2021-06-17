@@ -1,0 +1,157 @@
+<div class="wrapper ">
+    <!-- Navbar -->
+    <!-- End Navbar -->
+    <div class="main-panel">
+
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+            <br> <br> 
+          <div class="card ">
+            <div class="card-body ">
+                  <mat-form-field class="search">
+                    <mat-label >Rechercher</mat-label>
+                    <input matInput [(ngModel)]="term">
+                  </mat-form-field> 
+                  
+                  <mat-form-field class="right">
+                    <mat-label>Nombre de lignes</mat-label>
+                    <select matNativeControl required [(ngModel)]="size" (change)="getfournisseurlist(1,size)">
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                        <option [ngValue]="200">200</option>
+                        <option [ngValue]="500">500</option>
+                      </select>
+                   </mat-form-field>
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">code_tier</th>
+                        <th scope="col">raison_sociale</th>
+                        <th scope="col">ice</th>
+                        <th scope="col">identifiant_fiscal</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                  <tr class="tr" *ngFor="let forn of fournisseur.content |filter:term" (click)="modaldata(forn.idFournisseur)" data-toggle="modal" data-target="#exampleModal">
+                     <th scope="row" class="off" *ngIf="forn.statusFournisseur == 0"><i class="fas fa-power-off"></i></th>
+                     <th scope="row" class="on" *ngIf="forn.statusFournisseur == 1"><i class="fas fa-power-off"></i></th>
+                        <td>{{forn.codeTier}}</td>
+                        <td>{{forn.raisonSociale}}</td>
+                        <td>{{forn.idFournisseur}}</td>
+                        <td>{{forn.identifiantFiscal}}</td>
+                  </tr>
+                    </tbody>
+                  </table>
+
+                  
+                  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Fournisseur ({{id}})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <mat-form-field >
+          <mat-label >Id Fournisseur</mat-label>
+          <input disabled matInput [(ngModel)]="fournisseuredit.idFournisseur">
+        </mat-form-field> 
+
+        <mat-form-field class="formdata">
+          <mat-label >Code Tier</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.codeTier" disabled>
+        </mat-form-field> 
+
+        <mat-form-field >
+          <mat-label >Raison Sociale</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.raisonSociale">
+        </mat-form-field> 
+
+        <mat-form-field class="formdata">
+          <mat-label >Identifiant Fiscal</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.identifiantFiscal" disabled>
+        </mat-form-field> 
+
+        <mat-form-field >
+          <mat-label >Ice</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.ice" disabled>
+        </mat-form-field> 
+
+        <mat-form-field class="formdata">
+          <mat-label >Telephone</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.telephone">
+        </mat-form-field>
+        
+        <mat-form-field >
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.email">
+        </mat-form-field> 
+
+        <mat-form-field class="formdata">
+          <mat-label>Date Creation</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.dateCreation" disabled>
+        </mat-form-field> 
+
+<br>
+        <mat-form-field style="width: 100%;">
+          <mat-label >Adresse Postale</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.adressePostale">
+        </mat-form-field> 
+
+        <mat-form-field >
+          <mat-label>Date Modification</mat-label>
+          <input matInput [(ngModel)]="fournisseuredit.dateModification" disabled>
+        </mat-form-field> 
+
+          <mat-slide-toggle class="formdata" (change)="changeetat()" 
+          [checked]="checked"
+          >
+               Status
+          </mat-slide-toggle>
+    
+
+          <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li [routerLinkActive]="['active']">
+              <a  data-dismiss="modal" class="nav-link" [routerLink]="['/application/marche',fournisseuredit.idFournisseur,fournisseuredit.codeTier]">
+                <i class="nc-icon nc-shop"></i>
+                <p>Marchés</p>
+              </a>
+            </li>
+          </ul>
+          </div>
+    
+
+      </div>
+
+      <div class="modal-footer">
+                <button  data-dismiss="modal" mat-stroked-button color="warn" (click)="updatefourisseur()">
+                  <span class="material-icons">
+                    save
+                  </span>  
+                  Enregistrer
+                </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                  <mat-paginator [length]="fournisseur.totalElements"
+                                 [pageSize]="size"
+                                 (page)="onclick($event)"
+                                 >
+                 </mat-paginator>
+            </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>

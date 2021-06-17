@@ -1,0 +1,55 @@
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="login100-form validate-form" style="
+            padding-top: 50px;
+        ">
+                <span class="login100-form-title p-b-43">
+                    <img src="/assets/login/images/logo.png" alt="" height="150px" width="150px">
+                </span>
+                
+                
+                <div class="wrap-input100 validate-input" data-validate = "Un email valide est requis: ex@abc.xyz">
+                    <input class="input100" type="text" placeholder="Matricule" name="username" [(ngModel)]="form.username" #username="ngModel" required>
+                    <span class="focus-input100"></span>
+                </div>
+                <div *ngIf="f.submitted && username.invalid">
+                    <p *ngIf="username.errors.required" style="color: red;"> *Matricule est nécessaire</p>
+                  </div>
+          
+                
+                
+                <div class="wrap-input100 validate-input" data-validate="Mot de passe requis">
+                    <input class="input100" type="password" name="password" [(ngModel)]="form.password" #password="ngModel"
+                    required minlength="6" placeholder="Mot de passe">
+                    <span class="focus-input100"></span>
+                </div>
+                <div *ngIf="f.submitted && password.invalid">
+                    <p *ngIf="password.errors.required" style="color: red;"> *Mot de passe est nécessaire</p>
+                  </div>
+        
+        
+
+                <div class="container-login100-form-btn">
+                    
+                    <button class="login100-form-btn">
+                        S'IDENTIFIER
+                    </button>
+           
+                </div>
+                <p>{{token}}</p>
+                <p>{{email}}</p>
+          
+                
+
+            </form>
+            
+
+            <div class="login100-more" style="background-image: url('/assets/login/images/bg-01.jpg');">
+            </div>
+        </div>
+    </div>
+</div>
+
